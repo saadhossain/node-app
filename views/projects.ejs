@@ -10,11 +10,11 @@
 <body>
     <div class="container">
         <h1>Projects</h1>
-
         <% if (user) { %>
+            <a href="/" class="btn btn-success">Home</a>
             <a href="/addProject" class="btn btn-primary">Add New Project</a>
-            <a href="/logout" class="btn btn-danger">logout</a>
             <a href="/profile" class="btn btn-info">profile</a>
+            <a href="/logout" class="btn btn-danger">logout</a>
         <% } %>
         <% if (!user) { %>
             <a href="/login" class="btn btn-primary">Login</a>
@@ -55,6 +55,7 @@
     </div>
 <script>
     async function deleteHandler(projectId) {
+        // return alert(projectId + ' is deleted');
         if (confirm('Are you sure you want to delete this project?')) {
             try {
                 const response = await fetch(`/projects/${projectId}`, {

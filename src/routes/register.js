@@ -24,13 +24,11 @@ router.get('/register', (req, res) => {
 router.post('/register', upload.single('profileImage'), async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     const profileImage = req.file ? `/uploads/${req.file.filename}` : '/images/blue-avatar.png';
-
     // Server-side validation
     if (!firstName || !lastName || !email || !password) {
         req.flash('message', 'All fields are required');
         return res.status(400).json({ success: false, message: 'All fields are required' });
     }
-
     try {
         // Check if the email is already registered
         const existingUser = await User.findOne({ email });
@@ -40,19 +38,14 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
         }
 
         // Create a new user with the profile image
-        const user = await User.create({
+      const  user=  await User.create({
             firstName,
             lastName,
             email,
             password,
             profileImage,
         });
-
-        console.log('====================================');
-        console.log(user);
-        console.log('====================================');
-        req.flash('message', 'Registration successful. Please log in.');
-        res.render('login');
+        res.status(200).json(user);
     } catch (error) {
         console.error(error);
         req.flash('message', 'Registration failed. Please try again.');
@@ -62,21 +55,27 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 
 router.patch('/updateProfile/:id', upload.single('profileImage'), async (req, res) => {
     const id=req.params.id;
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName } = req.body;
     const profileImage = req.file ? `/uploads/${req.file.filename}` : undefined;
     try {
         const existingUser = await User.findById(id);
+        const data={
+            firstName,
+            lastName,
+        }
+        if(profileImage)
+        data.profileImage=profileImage;
         if (!existingUser) {
             return res.status(400).json({ success: false, message: 'user not found' });
         }
-        const user = await User.findByIdAndUpdate(id,{
-            firstName,
-            lastName,
-            email,
-            profileImage,
+        const user = await User.findByIdAndUpdate(id,data,{
+            new: true
         });
-        req.flash('message', 'Registration successful. Please log in.');
-        res.redirect("login");
+        req.session.user = user;
+        console.log('====================================');
+        console.log(user);
+        console.log('====================================');
+        return res.status(200).json({ success: true, message: '' });
     } catch (error) {
         console.error(error);
         req.flash('message', 'Registration failed. Please try again.');

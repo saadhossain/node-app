@@ -8,7 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
+        <% if (user) { %>
+            <a href="/" class="btn btn-success">Home</a>
+            <a href="/profile" class="btn btn-info">profile</a>
+            <a href="/logout" class="btn btn-danger">logout</a>
+        <% } %>
+        <% if (!user) { %>
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/register" class="btn btn-danger">Register</a>
+        <% } %>
         <h1>Add New Project</h1>
         <form action="/projects" method="post" enctype="multipart/form-data"   >
             <!-- Title -->

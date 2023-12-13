@@ -12,6 +12,15 @@
   </head>
   <body>
     <div class="container mt-5">
+        <% if (user) { %>
+            <a href="/" class="btn btn-success">Home</a>
+            <a href="/profile" class="btn btn-info">profile</a>
+            <a href="/logout" class="btn btn-danger">logout</a>
+        <% } %>
+        <% if (!user) { %>
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/register" class="btn btn-danger">Register</a>
+        <% } %>
       <h1>Edit Project</h1>
 
       <form

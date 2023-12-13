@@ -1,6 +1,6 @@
 {
-  "name": "server",
-  "version": "1.0.0",
+  "name": "node-crud",
+  "version": "1.2.5",
   "description": "",
   "main": "index.js",
   "scripts": {

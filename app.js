@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://vaidehi:odnYqpfy1opJHgeS@cluster0.lkawdhu.mongodb.net/?retryWrites=true&w=majority').then(() => {
     console.log("Database connection successful");
 });
-// Define an anonymous function to handle errors
+
 mongoose.connection.on('error', (error) => console.error(error));
 mongoose.Promise = global.Promise;
 
@@ -30,7 +30,6 @@ app.use(session({
 
 app.use(flash());
 app.use((req, res, next) => {
-    // Log request details for debugging
     console.log(req.method + " " + req.url, req.body);
     next();
 })
