@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Profile</h1>
+
+        <% if (user) { %>
+            <p><strong>Name:</strong> <%= user.firstName %> <%= user.lastName %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <img src="<%= user.profileImage %>" alt="Profile Image" style="max-width: 200px;" class="img-fluid">
+            <a href="/editProfile" class="btn btn-primary">Edit Profile</a>
+        <% } else { %>
+            <p>No user found. Please log in.</p>
+        <% } %>
+    </div>
+
+    <!-- Bootstrap JS and jQuery scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

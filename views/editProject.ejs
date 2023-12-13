@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Project</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Edit Project</h1>
+
+      <form
+        action="/projects/<%= project._id %>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <!-- Image Preview -->
+        <div class="mb-3">
+          <img
+            src="<%= project.image %>"
+            alt="Project Image"
+            class="img-fluid mb-2"
+            style="max-width: 300px"
+          />
+        </div>
+
+        <!-- Upload New Image -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload New Image:</label>
+          <input type="file" class="form-control" id="image" name="image" />
+        </div>
+
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            value="<%= project.title %>"
+            required
+          />
+        </div>
+
+        <!-- Subtitle -->
+        <div class="mb-3">
+          <label for="subtitle" class="form-label">Subtitle:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="subtitle"
+            name="subtitle"
+            value="<%= project.subtitle %>"
+          />
+        </div>
+
+        <!-- Owner Name -->
+        <div class="mb-3">
+          <label for="ownerName" class="form-label">Owner Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerName"
+            name="ownerName"
+            value="<%= project.ownerName %>"
+          />
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description:</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="4"
+            required
+          >
+<%= project.description %></textarea
+          >
+        </div>
+
+        <button  onclick="updateHandler()" type="button" class="btn btn-primary">
+          Update Project
+        </button>
+      </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery scripts -->
+    <!-- Add this script to your HTML file -->
+    <script>
+      // Assuming 'fileInput' is the file input element and other fields are standard input elements
+      // Extract the project ID from the URL
+const updateHandler=()=>{
+    const fileInput = document.getElementById("image");
+      const titleInput = document.getElementById("title");
+      const subtitleInput = document.getElementById("subtitle");
+      const ownerNameInput = document.getElementById("ownerName");
+      const descriptionInput = document.getElementById("description");
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]); // Assuming only one file is expected
+      formData.append("title", titleInput.value);
+      formData.append("subtitle", subtitleInput.value);
+      formData.append("ownerName", ownerNameInput.value);
+      formData.append("description", descriptionInput.value);
+      const projectId = window.location.pathname.split("/").pop(); 
+        fetch(`/projects/${projectId}`, {
+          method:"PATCH",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+          })
+          .then((data) => {
+            console.log(data);
+            // alert("Project updated successfully!");
+            window.location.href = `/projects`; // Redirect to the project details page
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert(
+              "An error occurred while updating the project. Please try again."
+            );
+          });
+}
+     
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
