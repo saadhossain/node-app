@@ -11,7 +11,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Initiate database connection
-mongoose.connect('mongodb+srv://vaidehi:odnYqpfy1opJHgeS@cluster0.lkawdhu.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect('mongodb+srv://vaidehi:odnYqpfy1opJHgeS@cluster0.lkawdhu.mongodb.net/?retryWrites=true&w=majority').then(() => {
     console.log("Database connection successful");
 });
 // Define an anonymous function to handle errors
