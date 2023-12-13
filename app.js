@@ -11,7 +11,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Initiate database connection
-mongoose.connect('mongodb+srv://mernmongo:mernmongo123@cluster0.w8sgg2s.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+mongoose.connect('mongodb+srv://vaidehi:odnYqpfy1opJHgeS@cluster0.lkawdhu.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("Database connection successful");
 });
 // Define an anonymous function to handle errors
@@ -30,8 +30,8 @@ app.use(session({
 
 app.use(flash());
 app.use((req, res, next) => {
-     // Log request details for debugging
-    console.log(req.method+" "+req.url, req.body);
+    // Log request details for debugging
+    console.log(req.method + " " + req.url, req.body);
     next();
 })
 // Use the routes module
